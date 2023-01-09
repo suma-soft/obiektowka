@@ -1,15 +1,78 @@
 import turtle
 import tkinter as tk
 
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     canvas = tk.Canvas(root)
     canvas.config(width=600, height=600)
     canvas.pack(side=tk.RIGHT)
     screen = turtle.TurtleScreen(canvas)
-    screen.bgcolor("beige")
-    button = tk.Button(root, text="Press me")
-    button.pack()
+    screen.bgcolor("blue")
+
+
+
+class Przyciski:        
+
+    def set_pion(A,B):
+        Przyciski.wlasciwy_pion.goto(A,B-25)
+        Przyciski.piszacy_pion.clear()
+        Przyciski.piszacy_pion.goto(A,B-35)
+        Przyciski.piszacy_pion.write(Przyciski.pisana_nazwa_piona, align='center', font=('Arial', 12, 'bold'))
+
+    def which_pion(Z,S,Y):
+        Przyciski.wlasciwy_pion = Z
+        Przyciski.piszacy_pion = S
+        Przyciski.pisana_nazwa_piona = Y
+        
+        print (Przyciski.wlasciwy_pion)
+        return Przyciski.wlasciwy_pion
+        return Przyciski.piszacy_pion
+        
+
+
+
+b1 = tk.Button(root, relief="sunken", text="G1", command=lambda: Przyciski.which_pion(g1,ng1,'G1'))
+b2 = tk.Button(root, relief="sunken", text="G2", command=lambda: Przyciski.which_pion(g2,ng2,'G2'))
+b3 = tk.Button(root, relief="sunken", text="G3", command=lambda: Przyciski.which_pion(g3,ng3,'G3'))
+b4 = tk.Button(root, relief="sunken", text="R1", command=lambda: Przyciski.which_pion(r1,nr1,'R1'))
+b5 = tk.Button(root, relief="sunken", text="R2", command=lambda: Przyciski.which_pion(r2,nr2,'R2'))
+b6 = tk.Button(root, relief="sunken", text="R3", command=lambda: Przyciski.which_pion(r3,nr3,'R3'))
+
+b7 = tk.Button(root, text="A", command=lambda: Przyciski.set_pion(-150,175))
+b8 = tk.Button(root, text="B", command=lambda: Przyciski.set_pion(0,175))
+b9 = tk.Button(root, text="C", command=lambda: Przyciski.set_pion(150,175))
+b10 = tk.Button(root, text="D", command=lambda: Przyciski.set_pion(-150,25))
+b11 = tk.Button(root, text="E", command=lambda: Przyciski.set_pion(0,25))
+b12 = tk.Button(root, text="F", command=lambda: Przyciski.set_pion(150,25))
+b13 = tk.Button(root, text="G", command=lambda: Przyciski.set_pion(-150,-125))
+b14 = tk.Button(root, text="H", command=lambda: Przyciski.set_pion(0,-125))
+b15 = tk.Button(root, text="I", command=lambda: Przyciski.set_pion(150,-125))
+
+b1.pack()
+b2.pack()
+b3.pack()
+b4.pack()
+b5.pack()
+b6.pack()
+b7.pack()
+b8.pack()
+b9.pack()
+b10.pack()
+b11.pack()
+b12.pack()
+b13.pack()
+b14.pack()
+b15.pack()
+
+
     
 plansza = turtle.RawTurtle(screen, visible=False)
 plansza.speed(0)
