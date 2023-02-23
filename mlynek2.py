@@ -1,5 +1,6 @@
 import turtle
 import tkinter as tk
+from checker import Checker
 
 
 
@@ -13,9 +14,11 @@ if __name__ == "__main__":
 
 tymczasowy_pion = None
 sedzia = 'green'
-matryca = [[0,0,0],
-           [0,0,0],
-           [0,0,0]]
+matryca = [[' ',' ',' '],
+           [' ',' ',' '],
+           [' ',' ',' ']]
+
+checker = Checker(matryca)
 
 class Przyciski:
     blokada_set_pion = False
@@ -51,35 +54,7 @@ class Przyciski:
             
         elif sedzia == 'green' and Przyciski.wlasciwy_pion in (g1, g2, g3):
             sedzia = 'red'
-            cls.blokada_set_pion = False
-
-            
-class Checker:
-    def __init__(self, matryca):
-        self.matryca = matryca
-
-    def check_line(self, line, player):
-        return line.count(player) == 3
-
-    def check_diagonal(self, player):
-        if self.matryca[0][0] == self.matryca[1][1] == self.matryca[2][2] == player:
-            return True
-        if self.matryca[0][2] == self.matryca[1][1] == self.matryca[2][0] == player:
-            return True
-        return False
-
-    def check_win(self):
-        for i in range(3):
-            if self.check_line(self.matryca[i], 'g') or self.check_line([row[i] for row in self.matryca], 'g'):
-                return "Wygrał gracz zielony!"
-            elif self.check_line(self.matryca[i], 'r') or self.check_line([row[i] for row in self.matryca], 'r'):
-                return "Wygrał gracz czerwony!"
-        if self.check_diagonal('g'):
-            return "Wygrał gracz zielony!"
-        elif self.check_diagonal('r'):
-            return "Wygrał gracz czerwony!"
-        return "Gra toczy się dalej."
-    
+            cls.blokada_set_pion = False 
 
 
 class Pola:
@@ -88,8 +63,7 @@ class Pola:
         if fields.field_A == 'empty' and Przyciski.blokada_set_pion == False:
            matryca[X][Y]=Przyciski.pisana_nazwa_piona
            Przyciski.set_pion(-150,175)
-           print(matryca)
-        elif fields.field_A != 'empty':
+        elif fields.field_A == 'busy':
             print ('To pole jest zajęte')
             
 
@@ -97,21 +71,21 @@ class Pola:
         if fields.field_B == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
             Przyciski.set_pion(0,175)
-        else:
+        elif fields.field_B == 'busy':
             print ('To pole jest zajęte')
 
     def fC(X,Y):
         if fields.field_C == 'empty' and Przyciski.blokada_set_pion == False:
            matryca[X][Y]=Przyciski.pisana_nazwa_piona
            Przyciski.set_pion(150,175)
-        else:
+        elif fields.field_C == 'busy':
             print ('To pole jest zajęte')
 
     def fD(X,Y):
         if fields.field_D == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
             Przyciski.set_pion(-150,25)
-        else:
+        elif fields.field_D == 'busy':
             print ('To pole jest zajęte')
 
     def fE(X,Y):
@@ -125,28 +99,27 @@ class Pola:
         if fields.field_F == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
             Przyciski.set_pion(150,25)
-        else:
+        elif fields.field_F == 'busy':
             print ('To pole jest zajęte')
 
     def fG(X,Y):
         if fields.field_G == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
             Przyciski.set_pion(-150,-125)
-        else:
+        elif fields.field_G == 'busy':
             print ('To pole jest zajęte')
 
     def fH(X,Y):
         if fields.field_H == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
-            Przyciski.set_pion(0,-125)
-        else:
+        elif fields.field_H == 'busy':
             print ('To pole jest zajęte')
             
     def fI(X,Y): 
         if fields.field_I == 'empty' and Przyciski.blokada_set_pion == False:
             matryca[X][Y]=Przyciski.pisana_nazwa_piona
             Przyciski.set_pion(150,-125)
-        else:
+        elif fields.field_I == 'busy':
             print ('To pole jest zajęte')
 
 class sweeper:
@@ -155,30 +128,29 @@ class sweeper:
         for i in range(len(matryca)):
             for j in range(len(matryca[i])):
                 if matryca[i][j] == Przyciski.pisana_nazwa_piona:
-                    matryca[i][j] = 0
-                    print(matryca)
+                    matryca[i][j] = ' '
             
     def load():
-        if matryca[0][0]!=0:
+        if matryca[0][0]!=' ':
             fields.field_A = 'busy'
-        if matryca[0][1]!=0:
+        if matryca[0][1]!=' ':
             fields.field_B = 'busy'
-        if matryca[0][2]!=0:
+        if matryca[0][2]!=' ':
             fields.field_C = 'busy'
-        if matryca[1][0]!=0:
+        if matryca[1][0]!=' ':
             fields.field_D = 'busy'
-        if matryca[1][1]!=0:
+        if matryca[1][1]!=' ':
             fields.field_E = 'busy'
-        if matryca[1][2]!=0:
+        if matryca[1][2]!=' ':
             fields.field_F = 'busy'
-        if matryca[2][0]!=0:
+        if matryca[2][0]!=' ':
             fields.field_G = 'busy'
-        if matryca[2][1]!=0:
+        if matryca[2][1]!=' ':
             fields.field_H = 'busy'
-        if matryca[2][2]!=0:
+        if matryca[2][2]!=' ':
             fields.field_I = 'busy'
         return
-        print(matryca)
+
 
 
 class fields:          
@@ -351,6 +323,3 @@ nazwaPiona(ng3,'G3',-180,270)
 nazwaPiona(nr1,'R1',270,-270)
 nazwaPiona(nr2,'R2',225,-270)
 nazwaPiona(nr3,'R3',180,-270)
-
-
-
